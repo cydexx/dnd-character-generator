@@ -46,12 +46,13 @@ export default async function handler(req, res) {
             },
             {
                 role: "user",
-                content: "twin fairy sisters sourcerer and barbarian ",
+                content: "generate",
             },
         ],
     })
-    //  console.log(completion.data.choices[0].message.content)
-    //  const character = JSON.parse(completion.data.choices[0].message.content)
 
-    res.status(200).json(completion.data.choices[0].message.content)
+    const character = JSON.parse(completion.data.choices[0].message.content)
+    console.log(character)
+
+    res.status(200).json({ character })
 }
