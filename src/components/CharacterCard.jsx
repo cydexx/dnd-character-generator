@@ -39,23 +39,29 @@ export default function CharacterCard() {
 
     return (
         <div className="flex flex-col items-center justify-center px-20">
-            <h1>Character:</h1>
-            <button
+            <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={generateCharacter}
                 disabled={loading}
                 className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
             >
                 {loading ? "Generating Character" : "Generate Character"}
-            </button>
-            <button
-                onClick={() =>
-                    copyCharactersToClipboard(characters) &&
-                    alert("All characters copied successfully!")
-                }
-                className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
-            >
-                Copy Characters
-            </button>
+            </motion.button>
+            {characters.length > 0 ? (
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() =>
+                        copyCharactersToClipboard(characters) &&
+                        alert("All characters copied successfully!") &&
+                        setIsOpen(open)
+                    }
+                    className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
+                >
+                    Copy Characters
+                </motion.button>
+            ) : null}
             {loading ? (
                 <div>
                     <Loading />
@@ -75,10 +81,10 @@ export default function CharacterCard() {
                         className="p-5 bg-indigo-400 border border-indigo-700 rounded-2xl "
                         initial={{ x: 300, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: 300, opacity: 0 }}
+                        viewport={{ once: true }}
                         transition={{
                             type: "spring",
-                            stiffness: 260,
+                            stiffness: 100,
                             damping: 20,
                         }}
                     >
@@ -112,7 +118,9 @@ export default function CharacterCard() {
 
                             <p>Lore: {character.Lore}</p>
                         </div>
-                        <button
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
                             onClick={() =>
                                 copyCharacterToClipboard(characters) &&
                                 alert("Character copied successfully!")
@@ -120,7 +128,7 @@ export default function CharacterCard() {
                             className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
                         >
                             Copy Character as a JSON
-                        </button>
+                        </motion.button>
                     </motion.div>
                 ))}
             </div>
