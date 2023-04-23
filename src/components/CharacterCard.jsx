@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-
+import { motion } from "framer-motion"
 export default function CharacterCard() {
     const [character, setCharacter] = useState(null)
     const [error, setError] = useState(false)
@@ -17,7 +17,7 @@ export default function CharacterCard() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center px-20">
             <h1>Character:</h1>
             {loading ? (
                 <div className="bg-green-500 ">
@@ -30,7 +30,17 @@ export default function CharacterCard() {
                 <></>
             )}
             {character ? (
-                <div className="p-5 bg-indigo-400 border border-indigo-700 rounded-2xl">
+                <motion.div
+                    className="p-5 bg-indigo-400 border border-indigo-700 rounded-2xl "
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 300, opacity: 0 }}
+                    transition={{
+                        type: "spring",
+                        stiffness: 260,
+                        damping: 20,
+                    }}
+                >
                     <p>Name: {character.FirstName}</p>
                     <p>LastName: {character.LastName}</p>
                     <p>Gender: {character.Gender}</p>
@@ -41,6 +51,7 @@ export default function CharacterCard() {
                     <p>WeaponType: {character.WeaponType}</p>
                     <p>WeaponName: {character.WeaponName}</p>
                     <li className="list-none">
+                        Stats:
                         <p>Level: {character.Stats.Level}</p>
                         <p>Strength: {character.Stats.Strength}</p>
                         <p>Dexterity: {character.Stats.Dexterity}</p>
@@ -51,14 +62,16 @@ export default function CharacterCard() {
                     </li>
 
                     <p>Lore: {character.Lore}</p>
-                </div>
+                </motion.div>
             ) : (
                 <></>
             )}
-            {error && (
+            {error ? (
                 <div className="bg-red-500 text-white p-4 rounded-md text-[15px] text-center">
                     {error}
                 </div>
+            ) : (
+                <></>
             )}
             <button
                 onClick={generateCharacter}
