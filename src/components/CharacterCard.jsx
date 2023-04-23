@@ -53,9 +53,11 @@ export default function CharacterCard() {
 
     useEffect(() => {
         if (error) {
+            document.body.classList.add("shake")
             setTimeout(() => {
+                document.body.classList.remove("shake")
                 setError(false)
-            }, 10000)
+            }, 5000)
         }
     }, [error])
 
