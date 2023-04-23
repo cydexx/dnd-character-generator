@@ -5,8 +5,6 @@ export default function CharacterCard() {
     const [characters, setCharacters] = useState([])
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
-    //!TO-DO: generate char buttonuna basılınca buton disable olacak ve karakterin özelliklerinin
-    //! geleceği div oluşacak
 
     async function generateCharacter(e) {
         e.preventDefault()
@@ -26,6 +24,18 @@ export default function CharacterCard() {
             setLoading(false)
         }
     }
+    function copyCharactersToClipboard(characters) {
+        const characterString = JSON.stringify(characters)
+        navigator.clipboard.writeText(characterString)
+        return true
+    }
+    function copyCharacterToClipboard(characters) {
+        const characterString = JSON.stringify(
+            characters[characters.length - 1]
+        )
+        navigator.clipboard.writeText(characterString)
+        return true
+    }
 
     return (
         <div className="flex flex-col items-center justify-center px-20">
@@ -36,6 +46,15 @@ export default function CharacterCard() {
                 className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
             >
                 {loading ? "Generating Character" : "Generate Character"}
+            </button>
+            <button
+                onClick={() =>
+                    copyCharactersToClipboard(characters) &&
+                    alert("All characters copied successfully!")
+                }
+                className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
+            >
+                Copy Characters
             </button>
             {loading ? (
                 <div>
@@ -63,27 +82,45 @@ export default function CharacterCard() {
                             damping: 20,
                         }}
                     >
-                        <p>Name: {character.FirstName}</p>
-                        <p>LastName: {character.LastName}</p>
-                        <p>Gender: {character.Gender}</p>
-                        <p>Age: {character.Age}</p>
-                        <p>Race: {character.Race}</p>
-                        <p>Nickname: {character.Nickname}</p>
-                        <p>Equipments: {character.Equipments}</p>
-                        <p>WeaponType: {character.WeaponType}</p>
-                        <p>WeaponName: {character.WeaponName}</p>
-                        <li className="list-none">
-                            Stats:
-                            <p>Level: {character.Stats.Level}</p>
-                            <p>Strength: {character.Stats.Strength}</p>
-                            <p>Dexterity: {character.Stats.Dexterity}</p>
-                            <p>Constitution: {character.Stats.Constitution}</p>
-                            <p>Intelligence: {character.Stats.Intelligence}</p>
-                            <p>Wisdom: {character.Stats.Wisdom}</p>
-                            <p>Charisma: {character.Stats.Charisma}</p>
-                        </li>
+                        <h1 className="font-bold text-xl">
+                            Chracher #{index + 1}
+                        </h1>
+                        <div className="text-lg">
+                            <p>Name: {character.FirstName}</p>
+                            <p>LastName: {character.LastName}</p>
+                            <p>Gender: {character.Gender}</p>
+                            <p>Age: {character.Age}</p>
+                            <p>Race: {character.Race}</p>
+                            <p>Nickname: {character.Nickname}</p>
+                            <p>Equipments: {character.Equipments}</p>
+                            <p>WeaponType: {character.WeaponType}</p>
+                            <p>WeaponName: {character.WeaponName}</p>
+                            <li className="list-none">
+                                Stats:
+                                <p>Level: {character.Stats.Level}</p>
+                                <p>Strength: {character.Stats.Strength}</p>
+                                <p>Dexterity: {character.Stats.Dexterity}</p>
+                                <p>
+                                    Constitution: {character.Stats.Constitution}
+                                </p>
+                                <p>
+                                    Intelligence: {character.Stats.Intelligence}
+                                </p>
+                                <p>Wisdom: {character.Stats.Wisdom}</p>
+                                <p>Charisma: {character.Stats.Charisma}</p>
+                            </li>
 
-                        <p>Lore: {character.Lore}</p>
+                            <p>Lore: {character.Lore}</p>
+                        </div>
+                        <button
+                            onClick={() =>
+                                copyCharacterToClipboard(characters) &&
+                                alert("Character copied successfully!")
+                            }
+                            className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
+                        >
+                            Copy Character as a JSON
+                        </button>
                     </motion.div>
                 ))}
             </div>
