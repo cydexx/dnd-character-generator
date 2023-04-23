@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import Loading from "./Loading"
 export default function CharacterCard() {
     const [characters, setCharacters] = useState([])
     const [error, setError] = useState(false)
@@ -37,11 +38,8 @@ export default function CharacterCard() {
                 {loading ? "Generating Character" : "Generate Character"}
             </button>
             {loading ? (
-                <div className="bg-green-500 ">
-                    <p>
-                        Creating character... This may take some time, please
-                        wait.
-                    </p>
+                <div>
+                    <Loading />
                 </div>
             ) : null}
             {error ? (
@@ -51,7 +49,7 @@ export default function CharacterCard() {
             ) : (
                 <></>
             )}
-            <div className="flex flex-col-reverse">
+            <div className="flex flex-col-reverse gap-5">
                 {characters.map((character, index) => (
                     <motion.div
                         key={index}
