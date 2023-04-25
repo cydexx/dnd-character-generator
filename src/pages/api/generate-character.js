@@ -80,7 +80,7 @@ export default async function handler(req, res) {
     // const characterString = JSON.stringify(characterData)
     // const character = JSON.parse(characterString)
     // res.setHeader("Content-Type", "application/json")
-    res.status(200).send({ characterInfo })
+    res.status(200).json({ characterInfo })
 }
 
 // const { Configuration, OpenAIApi } = require("openai")
