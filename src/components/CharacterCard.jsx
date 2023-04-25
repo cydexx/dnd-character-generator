@@ -3,12 +3,14 @@ import { motion } from "framer-motion"
 import Loading from "./Loading"
 
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline"
+import Image from "next/image"
 
 export default function CharacterCard() {
-    const [characters, setCharacters] = useState([])
+    const [characterInfos, setCharacterInfos] = useState([])
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [showPopup, setShowPopup] = useState(false)
+    // const [characterImage, setCharacterImage] = useState([])
 
     async function generateCharacter(e) {
         e.preventDefault()
@@ -17,11 +19,16 @@ export default function CharacterCard() {
             const res = await fetch("/api/generate-character").then((r) =>
                 r.json()
             )
-            setCharacters((prevCharacters) => [
+            setCharacterInfos((prevCharacters) => [
                 ...prevCharacters,
-                res.character,
+                res.characterInfo,
             ])
+            // setCharacterImage((prevcharacterImages) => [
+            //     ...prevcharacterImages,
+            //     res.characterImage,
+            // ])
             setLoading(false)
+            // console.log(characterImage)
         } catch (err) {
             console.error(err)
             setError(true)
@@ -66,13 +73,13 @@ export default function CharacterCard() {
             <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={generateCharacter}
+                onClick={generateCharacter} //&& generateCharacterImage
                 disabled={loading}
                 className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
             >
                 {loading ? "Generating Character" : "Generate Character"}
             </motion.button>
-            {characters.length > 0 ? (
+            {characterInfos.length > 0 ? (
                 <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
@@ -91,7 +98,7 @@ export default function CharacterCard() {
             ) : null}
 
             <div className="flex flex-col-reverse gap-5">
-                {characters.map((character, index) => (
+                {characterInfos.map((characterInfo, index, characterImage) => (
                     <motion.div
                         key={index}
                         className="p-5 bg-indigo-400 border border-indigo-700 rounded-2xl "
@@ -105,34 +112,46 @@ export default function CharacterCard() {
                         }}
                     >
                         <h1 className="font-bold text-xl">
-                            Chracher #{index + 1}
+                            Character #{index + 1}
                         </h1>
                         <div className="text-lg">
-                            <p>Name: {character.FirstName}</p>
-                            <p>LastName: {character.LastName}</p>
-                            <p>Gender: {character.Gender}</p>
-                            <p>Age: {character.Age}</p>
-                            <p>Race: {character.Race}</p>
-                            <p>Nickname: {character.Nickname}</p>
-                            <p>Equipments: {character.Equipments}</p>
-                            <p>WeaponType: {character.WeaponType}</p>
-                            <p>WeaponName: {character.WeaponName}</p>
-                            <li className="list-none">
-                                Stats:
-                                <p>Level: {character.Stats.Level}</p>
-                                <p>Strength: {character.Stats.Strength}</p>
-                                <p>Dexterity: {character.Stats.Dexterity}</p>
+                            <p>Name: {characterInfo.FirstName}</p>
+                            <p>LastName: {characterInfo.LastName}</p>
+                            <p>Gender: {characterInfo.Gender}</p>
+                            <p>Age: {characterInfo.Age}</p>
+                            <p>Race: {characterInfo.Race}</p>
+                            <p>Nickname: {characterInfo.Nickname}</p>
+                            <p>Equipments: {characterInfo.Equipments}</p>
+                            <p>WeaponType: {characterInfo.WeaponType}</p>
+                            <p>WeaponName: {characterInfo.WeaponName}</p>
+                            <p>Stats:</p>
+                            <ul className=" px-5">
+                                <p>Level: {characterInfo.Stats.Level}</p>
+                                <p>Strength: {characterInfo.Stats.Strength}</p>
                                 <p>
-                                    Constitution: {character.Stats.Constitution}
+                                    Dexterity: {characterInfo.Stats.Dexterity}
                                 </p>
                                 <p>
-                                    Intelligence: {character.Stats.Intelligence}
+                                    Constitution:
+                                    {characterInfo.Stats.Constitution}
                                 </p>
-                                <p>Wisdom: {character.Stats.Wisdom}</p>
-                                <p>Charisma: {character.Stats.Charisma}</p>
-                            </li>
-
-                            <p>Lore: {character.Lore}</p>
+                                <p>
+                                    Intelligence:
+                                    {characterInfo.Stats.Intelligence}
+                                </p>
+                                <p>Wisdom: {characterInfo.Stats.Wisdom}</p>
+                                <p>Charisma: {characterInfo.Stats.Charisma}</p>
+                            </ul>
+                            <p>Lore: {characterInfo.Lore}</p>
+                            {/* <div>
+                                <Image
+                                    alt={character.FirstName}
+                                    src={`/${characterImage}`}
+                                    width={256}
+                                    height={256}
+                                    // layout="responsive"
+                                />
+                            </div> */}
                         </div>
                         <motion.button
                             whileHover={{ scale: 1.1 }}
