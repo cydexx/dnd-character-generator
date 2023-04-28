@@ -15,7 +15,6 @@ export default function Loading() {
             animate={{ x: 0, opacity: 1 }}
             transition={{
                 delay: 0.2,
-
                 stiffness: 200,
                 damping: 20,
             }}

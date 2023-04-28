@@ -19,6 +19,7 @@ export default function CharacterCard() {
             const res = await fetch("/api/generate-character").then((r) =>
                 r.json()
             )
+
             setCharacterInfos((prevCharacters) => [
                 ...prevCharacters,
                 res.characterInfo,
@@ -36,15 +37,15 @@ export default function CharacterCard() {
         }
     }
 
-    function copyCharactersToClipboard(characters) {
-        const characterString = JSON.stringify(characters)
+    function copyCharactersToClipboard(characterInfos) {
+        const characterString = JSON.stringify(characterInfos)
         navigator.clipboard.writeText(characterString)
         setShowPopup(true)
     }
 
-    function copyCharacterToClipboard(characters) {
+    function copyCharacterToClipboard(characterInfos) {
         const characterString = JSON.stringify(
-            characters[characters.length - 1]
+            characterInfos[characterInfos.length - 1]
         )
         navigator.clipboard.writeText(characterString)
         setShowPopup(true)
@@ -84,7 +85,8 @@ export default function CharacterCard() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() =>
-                        copyCharactersToClipboard(characters) && setIsOpen(open)
+                        copyCharactersToClipboard(characterInfos) &&
+                        setIsOpen(open)
                     }
                     className="mx-2 my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-4 py-2 text-xs"
                 >
@@ -156,7 +158,9 @@ export default function CharacterCard() {
                         <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => copyCharacterToClipboard(characters)}
+                            onClick={() =>
+                                copyCharacterToClipboard(characterInfos)
+                            }
                             className="flex my-2 disabled:cursor-not-allowed bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 font-bold rounded text-white px-3 py-2 text-xs"
                         >
                             <ClipboardDocumentIcon className="h-5 mr-1" />
