@@ -12,7 +12,7 @@ export default function Header() {
                         className="text-indigo-700 hover:text-indigo-900 animate-pulse hover:animate-shake"
                         href="https://github.com/cydexx"
                     >
-                        cydexx
+                        cydex
                     </Link>
                 </div>
                 {/* <div className="pl-2">
