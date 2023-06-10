@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "Monument";
+    src: url("/fonts/Monument.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "Monument", sans-serif;
+}
+
 @keyframes shake {
     0% {
         transform: translateX(0);
@@ -24,6 +35,8 @@
     }
 }
 
-.shake {
-    animation: shake 0.5s;
+@keyframes pulse {
+    50% {
+        opacity: 0.5;
+    }
 }

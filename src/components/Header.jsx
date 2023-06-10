@@ -1,24 +1,24 @@
-import React from "react"
-import { useTheme } from "next-themes"
+import React, { useEffect, useState } from "react"
+import Link from "next/link"
+// import ThemeSwitcher from "./ThemeSwitcher"
 
-const ThemeSwitch = () => {
-    const { theme, setTheme } = useTheme()
-
-    return (
-        <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-            {/* <option value="system">System</option> */}
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-        </select>
-    )
-}
 export default function Header() {
     return (
-        <>
-            <header className="flex flex-row items-center justify-center ">
-                DND Character Generator
-                <ThemeSwitch />
-            </header>
-        </>
+        <header className="py-4 border-b-[1px]  mx-auto">
+            <div className="flex items-center justify-center text-center">
+                <div className="flex text-md sm:text-xl md:text-2xl">
+                    <h1>DND Character Generator by&nbsp;</h1>
+                    <Link
+                        className="text-indigo-700 hover:text-indigo-900 animate-pulse hover:animate-shake"
+                        href="https://github.com/cydexx"
+                    >
+                        cydexx
+                    </Link>
+                </div>
+                {/* <div className="pl-2">
+                    <ThemeSwitcher />
+                </div> */}
+            </div>
+        </header>
     )
 }

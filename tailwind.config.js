@@ -7,7 +7,12 @@ module.exports = {
         "./src/app/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            animation: {
+                shake: "shake 0.5s linear",
+                pulse: "pulse 5s linear infinite",
+            },
+        },
     },
     plugins: [],
 }
