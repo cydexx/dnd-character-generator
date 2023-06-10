@@ -12,7 +12,9 @@
 body {
     font-family: "Monument", sans-serif;
 }
-
+::selection {
+    background-color: #362f9c;
+}
 @keyframes shake {
     0% {
         transform: translateX(0);
